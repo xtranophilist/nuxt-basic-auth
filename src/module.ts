@@ -1,6 +1,6 @@
-import { resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+import { normalize } from 'pathe'
 
 export interface ModuleOptions {
   addPlugin: boolean
@@ -8,17 +8,16 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule'
+    name: 'basic-auth',
+    configKey: 'basicAuth'
   },
   defaults: {
     addPlugin: true
   },
-  setup (options, nuxt) {
-    if (options.addPlugin) {
-      const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-      nuxt.options.build.transpile.push(runtimeDir)
-      addPlugin(resolve(runtimeDir, 'plugin'))
-    }
+  setup (moduleOptions, nuxt) {
+    nuxt.hook('nitro:config', (config) => {
+      config.plugins = config.plugins || []
+      config.plugins.push(normalize(fileURLToPath(new URL('./runtime/nitro', import.meta.url))))
+    })
   }
 })
