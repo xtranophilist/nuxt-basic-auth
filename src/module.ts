@@ -1,6 +1,5 @@
-import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin } from '@nuxt/kit'
-import { normalize } from 'pathe'
+import { defineNuxtModule, createResolver } from '@nuxt/kit'
+import { resolve } from 'pathe'
 
 export interface ModuleOptions {
   username?: String
@@ -16,10 +15,12 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     enabled: true
   },
-  setup (moduleOptions, nuxt) {
+  async setup (moduleOptions, nuxt) {
+    const resolver = createResolver(import.meta.url)
+    const runtimeDir = await resolver.resolve('./runtime')
     nuxt.hook('nitro:config', (config) => {
       config.plugins = config.plugins || []
-      config.plugins.push(normalize(fileURLToPath(new URL('./runtime/nitro', import.meta.url))))
+      config.plugins.push(resolve(runtimeDir, 'nitro'))
       config.virtual = config.virtual || {}
       config.virtual['#basic-auth-config'] = `export default ${JSON.stringify(moduleOptions)}`
     })
