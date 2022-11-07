@@ -1,4 +1,4 @@
 {
-  "private": false,
-  "name": "nuxt-basic-auth"
+  "private": true,
+  "name": "nuxt-basic-auth-playground"
 }
