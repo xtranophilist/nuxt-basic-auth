@@ -6,5 +6,7 @@ export default defineNuxtConfig({
     BasicAuth
   ],
   basicAuth: {
+    username: 'user',
+    password: 'password'
   }
 })

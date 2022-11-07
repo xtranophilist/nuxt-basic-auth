@@ -3,7 +3,7 @@ import { defineNuxtModule, addPlugin } from '@nuxt/kit'
 import { normalize } from 'pathe'
 
 export interface ModuleOptions {
-  addPlugin: boolean
+  enabled: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -12,12 +12,14 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'basicAuth'
   },
   defaults: {
-    addPlugin: true
+    enabled: true
   },
   setup (moduleOptions, nuxt) {
     nuxt.hook('nitro:config', (config) => {
       config.plugins = config.plugins || []
       config.plugins.push(normalize(fileURLToPath(new URL('./runtime/nitro', import.meta.url))))
+      config.virtual = config.virtual || {}
+      config.virtual['#basic-auth-config'] = `export default ${JSON.stringify(moduleOptions)}`
     })
   }
 })
