@@ -3,6 +3,8 @@
   "version": "1.0.1",
   "license": "MIT",
   "type": "module",
+  "keywords": ["nuxt", "basic auth"],
+  "homepage": "https://github.com/xtranophilist/nuxt-basic-auth",
   "exports": {
     ".": {
       "import": "./dist/module.mjs",
