@@ -19,6 +19,9 @@ export default defineNuxtModule<ModuleOptions>({
     const resolver = createResolver(import.meta.url)
     const runtimeDir = await resolver.resolve('./runtime')
     nuxt.hook('nitro:config', (config) => {
+      config.externals = config.externals || {}
+      config.externals.inline = config.externals.inline || []
+      config.externals.inline.push(runtimeDir)
       config.plugins = config.plugins || []
       config.plugins.push(resolve(runtimeDir, 'nitro'))
       config.virtual = config.virtual || {}
