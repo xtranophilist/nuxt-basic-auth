@@ -1,5 +1,5 @@
+import { resolve } from 'path'
 import { defineNuxtModule, createResolver } from '@nuxt/kit'
-import { resolve } from 'pathe'
 
 export interface ModuleOptions {
   username?: String
