@@ -3,7 +3,9 @@ import { defineNuxtModule, addPlugin } from '@nuxt/kit'
 import { normalize } from 'pathe'
 
 export interface ModuleOptions {
-  enabled: boolean
+  username?: String
+  password?: String
+  enabled?: boolean
 }
 
 export default defineNuxtModule<ModuleOptions>({

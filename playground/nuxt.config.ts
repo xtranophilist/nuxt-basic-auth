@@ -2,9 +2,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 import BasicAuth from '..'
 
 export default defineNuxtConfig({
-  modules: [
-    BasicAuth
-  ],
+  modules: [BasicAuth],
   basicAuth: {
     username: 'user',
     password: 'password'
